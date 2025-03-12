@@ -21,7 +21,7 @@ export async function userMiddleware(req: Request, res: Response, next: NextFunc
             });
             return
         }
-        req.body.id = user.id;
+        req.id = user.id;
         next();
         
     } catch (error) {

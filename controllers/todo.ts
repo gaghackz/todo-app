@@ -8,7 +8,7 @@ export async function todoAdd(req :Request, res: Response) {
         const todo = await prisma.todo.create({
             data:{
                 task: body.todo,
-                userid: req.body.id
+                userid: req.id
             }
         })
 
@@ -101,5 +101,38 @@ export async function todoMarkDone(req: Request, res: Response) {
         });
         return
     }
+
+}
+
+export async function todoUpdateTask(req: Request, res: Response){
+
+    console.log(req.id)
+    const body = req.body;
+    const todo = await prisma.todo.update({
+            where:{
+                id: body.id,
+                userid: req.id
+                
+            },
+            data:{
+
+                task: body.todo
+
+            }
+    
+    })
+
+    if(!todo){
+
+        res.json({
+
+            message: "that didn't work :(("
+        })
+        return
+    }
+
+    res.json({
+        message:"Updated."
+    })
 
 }
