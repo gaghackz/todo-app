@@ -1,18 +1,15 @@
 import { Request, Response } from 'express';
 import prisma from '../db';
 
-export async function todoAdd(req: Request, res: Response) {
+export async function todoAdd(req :Request, res: Response) {
     try {
         const body = req.body;
         
         const todo = await prisma.todo.create({
             data:{
-
-                task : body.todo,
-                
-
+                task: body.todo,
+                userid: req.body.id
             }
-
         })
 
         if(!todo){
@@ -31,7 +28,7 @@ export async function todoAdd(req: Request, res: Response) {
         return
     } catch (error) {
         res.json({
-            success: "MEOW",
+            success: "false",
             message: error
         });
         return

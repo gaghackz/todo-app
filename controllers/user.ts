@@ -114,3 +114,21 @@ export async function UserRegister(req: Request, res: Response) {
     }
 
 }
+
+export async function UserFetch(req: Request, res: Response){
+
+    const body = req.body;
+
+    const todos = await prisma.todo.findMany({
+        
+        where: {
+            userid: req.id
+        }
+    })
+
+    res.json({
+
+        tasks: todos
+    })
+
+}
