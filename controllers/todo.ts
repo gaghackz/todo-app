@@ -1,10 +1,19 @@
 import { Request, Response } from 'express';
+import { todoTaskValidator } from '../validators/todo_validator';
 import prisma from '../db';
+
 
 export async function todoAdd(req :Request, res: Response) {
     try {
         const body = req.body;
-        
+        const check = todoTaskValidator.safeParse(body);
+                if (!check.success) {
+                    res.status(400).json({
+                        success: false,
+                        message: check.error
+                    });
+                    return
+                }
         const todo = await prisma.todo.create({
             data:{
                 task: body.todo,
