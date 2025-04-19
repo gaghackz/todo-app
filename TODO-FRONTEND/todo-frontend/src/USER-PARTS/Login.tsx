@@ -1,0 +1,56 @@
+import { useState, useContext } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { loggedin } from "../context";
+
+export function Home() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { setLogged } = useContext(loggedin) as {
+    setLogged: React.Dispatch<React.SetStateAction<boolean>>;
+  };
+  if (localStorage.getItem("access")) {
+    setLogged(true);
+    navigate("/todos");
+  }
+  async function Login() {
+    const result = await axios.post("http://localhost:3000/api/v1/user/login", {
+      username,
+      password,
+    });
+    localStorage.setItem("access", result.data.data);
+    console.log(result);
+    navigate("/todos");
+  }
+
+  async function Register() {
+    const result = await axios.post(
+      "http://localhost:3000/api/v1/user/register",
+      { username: username, password: password }
+    );
+    localStorage.setItem("access", result.data.data);
+    console.log(result);
+    navigate("/todos");
+  }
+
+  return (
+    <div className="login">
+      <h1 style={{ color: "white" }}>TODO-LOGIN</h1>
+      <input
+        type="text"
+        placeholder="Username.."
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Password.."
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <div className="login-button">
+        <button onClick={Login}>Login</button>
+        <button onClick={Register}>Register</button>
+      </div>
+    </div>
+  );
+}
