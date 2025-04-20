@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { loggedin } from "../context";
@@ -10,10 +10,14 @@ export function Home() {
   const { setLogged } = useContext(loggedin) as {
     setLogged: React.Dispatch<React.SetStateAction<boolean>>;
   };
-  if (localStorage.getItem("access")) {
-    setLogged(true);
-    navigate("/todos");
-  }
+  useEffect(() => {
+    const accessToken = localStorage.getItem("access");
+    if (accessToken) {
+      setLogged(true);
+      navigate("/todos");
+    }
+  }, [setLogged, navigate]);
+
   async function Login() {
     const result = await axios.post("http://localhost:3000/api/v1/user/login", {
       username,

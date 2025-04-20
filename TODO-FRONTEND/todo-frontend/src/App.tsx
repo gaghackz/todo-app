@@ -20,6 +20,7 @@ function App() {
         headers,
       });
       setTodos(result.data.tasks);
+      console.log(result);
     } catch (e) {
       console.error("Failed to fetch todos", e);
     }
