@@ -4,6 +4,7 @@ import { Todos } from "./TODO-PARTS/todo-component";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import { loggedin } from "./context";
+import LogoutButton from "./logout";
 import axios from "axios";
 
 function App() {
@@ -39,6 +40,15 @@ function App() {
             fetchTodos,
           }}
         >
+          <div
+            style={{
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+            }}
+          >
+            <LogoutButton />
+          </div>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/todos" element={<Todos />} />

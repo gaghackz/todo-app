@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { loggedin } from "../context";
 
 export function Home() {
+  const [meow, setMeow] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -23,9 +24,13 @@ export function Home() {
       username,
       password,
     });
-    localStorage.setItem("access", result.data.data);
-    console.log(result);
-    navigate("/todos");
+    if (result.data.success) {
+      localStorage.setItem("access", result.data.data);
+      console.log(result);
+      navigate("/todos");
+    } else {
+      setMeow(false);
+    }
   }
 
   async function Register() {
@@ -33,9 +38,11 @@ export function Home() {
       "http://localhost:3000/api/v1/user/register",
       { username: username, password: password }
     );
-    localStorage.setItem("access", result.data.data);
-    console.log(result);
-    navigate("/todos");
+    if (result.data.success) {
+      localStorage.setItem("access", result.data.data);
+      console.log(result);
+      navigate("/todos");
+    }
   }
 
   return (
@@ -55,6 +62,7 @@ export function Home() {
         <button onClick={Login}>Login</button>
         <button onClick={Register}>Register</button>
       </div>
+      {meow ? <div></div> : <div>Invalid credentials!</div>}
     </div>
   );
 }
