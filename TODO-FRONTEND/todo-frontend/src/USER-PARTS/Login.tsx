@@ -20,10 +20,13 @@ export function Home() {
   }, [setLogged, navigate]);
 
   async function Login() {
-    const result = await axios.post("http://localhost:3000/api/v1/user/login", {
-      username,
-      password,
-    });
+    const result = await axios.post(
+      "https://todo-app-rd10.onrender.com/api/v1/user/login",
+      {
+        username,
+        password,
+      }
+    );
     if (result.data.success) {
       localStorage.setItem("access", result.data.data);
       console.log(result);
@@ -35,7 +38,7 @@ export function Home() {
 
   async function Register() {
     const result = await axios.post(
-      "http://localhost:3000/api/v1/user/register",
+      "https://todo-app-rd10.onrender.com/api/v1/user/register",
       { username: username, password: password }
     );
     if (result.data.success) {

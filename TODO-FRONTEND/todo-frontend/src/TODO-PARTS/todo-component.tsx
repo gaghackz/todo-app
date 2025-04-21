@@ -43,7 +43,7 @@ export function Todos() {
   const toggleDone = async (id: number) => {
     try {
       const result = await axios.post(
-        "http://localhost:3000/api/v1/todo/markdone",
+        "https://todo-app-rd10.onrender.com/api/v1/todo/markdone",
         { id },
         { headers }
       );
@@ -57,7 +57,7 @@ export function Todos() {
   const onAdd = async () => {
     try {
       const result = await axios.post(
-        "http://localhost:3000/api/v1/todo",
+        "https://todo-app-rd10.onrender.com/api/v1/todo",
         { todo: task },
         { headers }
       );
@@ -71,10 +71,13 @@ export function Todos() {
 
   const onDelete = async (id: number) => {
     try {
-      const result = await axios.delete("http://localhost:3000/api/v1/todo", {
-        headers: headers,
-        data: { id },
-      });
+      const result = await axios.delete(
+        "https://todo-app-rd10.onrender.com/api/v1/todo",
+        {
+          headers: headers,
+          data: { id },
+        }
+      );
       console.log(result);
       await fetchTodos();
     } catch (e) {

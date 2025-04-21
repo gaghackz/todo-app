@@ -17,9 +17,12 @@ function App() {
       authorization: localStorage.getItem("access"),
     };
     try {
-      const result = await axios.get("http://localhost:3000/api/v1/user", {
-        headers,
-      });
+      const result = await axios.get(
+        "https://todo-app-rd10.onrender.com/api/v1/user",
+        {
+          headers,
+        }
+      );
       setTodos(result.data.tasks);
       console.log(result);
     } catch (e) {

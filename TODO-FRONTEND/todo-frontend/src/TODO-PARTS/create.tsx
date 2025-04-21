@@ -15,7 +15,7 @@ export function Create() {
   const onAdd = async () => {
     try {
       const result = await axios.post(
-        "http://localhost:3000/api/v1/todo",
+        "https://todo-app-rd10.onrender.com/api/v1/todo",
         { todo: task },
         { headers }
       );
