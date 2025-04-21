@@ -8,7 +8,7 @@ import { todoRouter } from "./routes/todo_routes";
 const app = express();
 app.use(express.json());
 const corsOption = {
-  origin: ["http://localhost:5173", "http://localhost:5173"],
+  origin: ["http://localhost:5173", "https://todo-app3245.netlify.app"],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
 };
